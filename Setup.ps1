@@ -24,7 +24,7 @@ if ($OutputFolder -eq $null -or $OutputFolder -eq "") {
 $olaHallengrenScriptPath = "https://ola.hallengren.com/scripts/MaintenanceSolution.sql"
 $olaHallengrenScriptFileName = "Scripts\26.InstallOlaHallengrenMaintenanceSolution.sql"
 Invoke-WebRequest -Uri $olaHallengrenScriptPath -OutFile $olaHallengrenScriptFileName
-(Get-Content -Path $olaHallengrenScriptFileName).replace('[master]', '[MaintenanceDB]') | Set-Content $olaHallengrenScriptFileName -Force
+(Get-Content -Path $olaHallengrenScriptFileName).replace('USE [master]', 'USE [MaintenanceDB]') | Set-Content $olaHallengrenScriptFileName -Force
 Copy-Item $($InputFolder + "\*") -Filter "*.sql" -Destination $OutputFolder
 Get-ChildItem -Path $OutputFolder -Filter "*.sql" | ForEach-Object {(Get-Content -Path $($OutputFolder + "\" + $_.Name)).Replace("{{email}}", $OperatorEmail) | Set-Content -Path $($OutputFolder + "\" + $_.Name) -Force}
 Get-ChildItem -Path $OutputFolder -Filter "*.sql" | ForEach-Object {(Get-Content -Path $($OutputFolder + "\" + $_.Name)).Replace("{{mailserver}}", $MailServer) | Set-Content -Path $($OutputFolder + "\" + $_.Name) -Force}
