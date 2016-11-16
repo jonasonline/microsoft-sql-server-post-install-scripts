@@ -26,7 +26,7 @@ if ((Test-Path -Path $OutputFolder) -eq $false) {
 }
 
 $olaHallengrenScriptPath = "https://ola.hallengren.com/scripts/MaintenanceSolution.sql"
-$olaHallengrenScriptFileName = "Scripts\26.InstallOlaHallengrenMaintenanceSolution.sql"
+$olaHallengrenScriptFileName = "Scripts\026.InstallOlaHallengrenMaintenanceSolution.sql"
 Invoke-WebRequest -Uri $olaHallengrenScriptPath -OutFile $olaHallengrenScriptFileName
 (Get-Content -Path $olaHallengrenScriptFileName).replace('USE [master]', 'USE [MaintenanceDB]') | Set-Content $olaHallengrenScriptFileName -Force
 Copy-Item $($InputFolder + "\*") -Filter "*.sql" -Destination $OutputFolder
