@@ -21,6 +21,10 @@ if ($OutputFolder -eq $null -or $OutputFolder -eq "") {
     $OutputFolder = "Scripts"
 }
 
+if ((Test-Path -Path $OutputFolder) -eq $false) {
+    mkdir $OutputFolder 
+}
+
 $olaHallengrenScriptPath = "https://ola.hallengren.com/scripts/MaintenanceSolution.sql"
 $olaHallengrenScriptFileName = "Scripts\26.InstallOlaHallengrenMaintenanceSolution.sql"
 Invoke-WebRequest -Uri $olaHallengrenScriptPath -OutFile $olaHallengrenScriptFileName
