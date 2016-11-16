@@ -1,9 +1,9 @@
 USE [master]
 GO
 
-ALTER DATABASE [tempdb] MODIFY FILE ( NAME = N'tempdev', SIZE = 1024000KB , FILEGROWTH = 64000KB )
+ALTER DATABASE [tempdb] MODIFY FILE ( NAME = N'tempdev', SIZE = 1024000KB , FILEGROWTH = 65536KB )
 GO
-ALTER DATABASE [tempdb] MODIFY FILE ( NAME = N'templog', SIZE = 512000KB , FILEGROWTH = 64000KB )
+ALTER DATABASE [tempdb] MODIFY FILE ( NAME = N'templog', SIZE = 512000KB , FILEGROWTH = 65536KB )
 GO
 
 DECLARE @CPU_Count int = (SELECT cpu_count FROM sys.dm_os_sys_info), 
@@ -34,7 +34,7 @@ BEGIN
 	BEGIN
 		SET @LogicalName_rev = REPLACE(@LogicalName, @i, @i +1)
 		SET @PhysicalName = REPLACE(@PhysicalName, @LogicalName, @LogicalName_rev)
-		SET @SQLCommand = 'ALTER DATABASE [tempdb] ADD FILE ( NAME = N''' + @LogicalName_rev + ''', FILENAME = N''' + @PhysicalName + ''', SIZE = 1024000KB , FILEGROWTH = 64000KB )'
+		SET @SQLCommand = 'ALTER DATABASE [tempdb] ADD FILE ( NAME = N''' + @LogicalName_rev + ''', FILENAME = N''' + @PhysicalName + ''', SIZE = 1024000KB , FILEGROWTH = 65536KB )'
 		EXEC (@SQLCommand)
 		SET @i = @i +1
 		SET @LogicalName = @LogicalName_rev 
