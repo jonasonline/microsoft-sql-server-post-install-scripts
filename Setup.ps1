@@ -46,4 +46,4 @@ if ($SQLServerInstanceName -eq $null) {
     $SQLServerInstanceName = Read-Host -Prompt "Enter SQL Server instance name"
 }
 
-Get-ChildItem $OutputFolder -Filter *.sql | Sort-Object -property Name | ForEach-Object{ Invoke-Sqlcmd -InputFile $_.FullName -ServerInstance $SQLServerInstanceName -Verbose -DisableVariables}
+Get-ChildItem $OutputFolder -Filter *.sql | Sort-Object -property Name | ForEach-Object{ Write-Host $_.Name; Invoke-Sqlcmd -InputFile $_.FullName -ServerInstance $SQLServerInstanceName -Verbose -DisableVariables}
